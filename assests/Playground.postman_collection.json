@@ -1,0 +1,67 @@
+{
+	"info": {
+		"_postman_id": "3fddc128-57f5-4604-b462-c1a44ed503e7",
+		"name": "Playground",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "4781970"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseUrl}}/dev/goodbye"
+			},
+			"response": []
+		},
+		{
+			"name": "POST data",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"test\": true,\r\n    \"data\": {\r\n        \"first_name\": \"Sadhika\",\r\n        \"phone_number\" : 8840996754,\r\n        \"last_name\": \"singh\"\r\n        \r\n    }\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/dev/data"
+			},
+			"response": []
+		},
+		{
+			"name": "Get by phone number",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/dev/find-by-phone?phone_number=8840996754",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"dev",
+						"find-by-phone"
+					],
+					"query": [
+						{
+							"key": "phone_number",
+							"value": "8840996754"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

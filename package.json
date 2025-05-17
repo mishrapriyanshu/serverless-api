@@ -16,6 +16,7 @@
     "mongodb": "^6.16.0"
   },
   "devDependencies": {
+    "@types/node": "^22.15.18",
     "nodemon": "^3.1.10",
     "serverless": "^4.14.3",
     "serverless-offline": "^14.4.0"
