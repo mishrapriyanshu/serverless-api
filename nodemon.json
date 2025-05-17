@@ -1,0 +1,4 @@
+{
+  "watch": ["handler.js", "routes.js"],
+  "ignore": ["*.json", "README.md"]
+}

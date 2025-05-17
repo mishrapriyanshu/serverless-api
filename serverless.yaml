@@ -1,0 +1,25 @@
+service: serverless-api
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: dev
+  region: us-east-1
+
+plugins:
+  - serverless-offline
+
+functions:
+  hello:
+    handler: handler.main
+    events:
+      - http:
+          path: hello
+          method: get
+      - http:
+          path: goodbye
+          method: get
+      - http:
+          path: data
+          method: post
+
