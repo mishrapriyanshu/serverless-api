@@ -5,8 +5,8 @@ A simple Node.js serverless API using AWS Lambda, Serverless Framework, and Mong
 ## Features
 
 - Serverless architecture with AWS Lambda
-- RESTful endpoints (`/hello`, `/goodbye`, `/data`)
-- MongoDB integration for storing POSTed data
+- RESTful endpoints (`/hello`, `/goodbye`, `/data`, `/find-by-phone`)
+- MongoDB integration for storing and querying data
 - Local development with `serverless-offline` and hot-reloading via `nodemon`
 
 ## Getting Started
@@ -56,9 +56,42 @@ npm run dev
 
 ### Endpoints
 
-- `GET /hello` - Returns a hello message
-- `GET /goodbye` - Returns a goodbye message
-- `POST /data` - Stores JSON body in MongoDB
+- `GET /hello`  
+  Returns a hello message.
+
+- `GET /goodbye`  
+  Returns a goodbye message.
+
+- `POST /data`  
+  Stores JSON body in MongoDB.  
+  **Example body:**
+  ```json
+  {
+    "test": true,
+    "data": {
+      "first_name": "Priyanshu Mishra",
+      "phone_number": 7376198743
+    }
+  }
+  ```
+
+- `GET /find-by-phone?phone_number=7376198743`  
+  Returns all documents where `data.phone_number` matches the provided number.  
+  **Example response:**
+  ```json
+  {
+    "results": [
+      {
+        "_id": "6828f059691978971b8f798f",
+        "test": true,
+        "data": {
+          "first_name": "Priyanshu Mishra",
+          "phone_number": 7376198743
+        }
+      }
+    ]
+  }
+  ```
 
 ### Project Structure
 
