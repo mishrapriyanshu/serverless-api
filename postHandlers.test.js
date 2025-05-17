@@ -21,6 +21,18 @@ describe('postHandlers.data', () => {
     expect(JSON.parse(response.body).insertedId).toBe('mockedId');
   });
 
+  it('should handle missing body gracefully', async () => {
+    const mockInsertOne = jest.fn().mockResolvedValue({ insertedId: 'mockedId' });
+    const mockDb = { collection: () => ({ insertOne: mockInsertOne }) };
+    connectToDatabase.mockResolvedValue(mockDb);
+
+    const event = {}; // No body property
+    const response = await postHandlers.data(event);
+    expect(response.statusCode).toBe(201);
+    expect(JSON.parse(response.body).message).toBe('Data received and stored successfully!');
+    expect(JSON.parse(response.body).insertedId).toBe('mockedId');
+  });
+
   it('should handle database errors gracefully', async () => {
     connectToDatabase.mockRejectedValue(new Error('DB error'));
 
