@@ -1,0 +1,132 @@
+openapi: 3.0.3
+info:
+  title: Serverless API
+  version: 1.0.0
+  description: Serverless API with MongoDB integration
+
+servers:
+  - url: http://localhost:3000
+    description: Local server
+
+paths:
+  /hello:
+    get:
+      summary: Returns a hello message
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  input:
+                    type: object
+
+  /goodbye:
+    get:
+      summary: Returns a goodbye message
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  input:
+                    type: object
+
+  /data:
+    post:
+      summary: Store data in MongoDB
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                test:
+                  type: boolean
+                data:
+                  type: object
+                  properties:
+                    first_name:
+                      type: string
+                    phone_number:
+                      type: integer
+      responses:
+        '201':
+          description: Data stored successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  received:
+                    type: object
+                  insertedId:
+                    type: string
+        '500':
+          description: Database error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  error:
+                    type: string
+
+  /find-by-phone:
+    get:
+      summary: Find data by phone number
+      parameters:
+        - in: query
+          name: phone_number
+          schema:
+            type: integer
+          required: true
+          description: Phone number to search for
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  results:
+                    type: array
+                    items:
+                      type: object
+        '400':
+          description: Missing phone_number parameter
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          description: Database error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  error:
+                    type: string
