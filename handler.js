@@ -50,5 +50,31 @@ module.exports.main = async (event) => {
       };
     }
   }
+
+  // GET /find-by-phone?phone_number=7376198743
+  if (method === 'GET' && path.endsWith('/find-by-phone')) {
+    const phoneNumber = event.queryStringParameters && event.queryStringParameters.phone_number;
+    if (!phoneNumber) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ message: 'phone_number query parameter is required' }, null, 2),
+      };
+    }
+    try {
+      const db = await connectToDatabase();
+      // Search for documents where data.phone_number matches (as number or string)
+      const results = await db.collection('data').find({ "data.phone_number": Number(phoneNumber) }).toArray();
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ results }, null, 2),
+      };
+    } catch (err) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ message: 'Database error', error: err.message }, null, 2),
+      };
+    }
+  }
+
   return createResponse('Not Found', event, 404);
 };

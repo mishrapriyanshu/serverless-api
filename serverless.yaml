@@ -22,4 +22,7 @@ functions:
       - http:
           path: data
           method: post
+      - http:
+          path: find-by-phone
+          method: get          
 
