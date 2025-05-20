@@ -9,9 +9,14 @@ provider:
 plugins:
   - serverless-offline
 
+custom:
+  serverless-offline:
+    httpPort: 3000
+    lambdaTimeout: 30
+
 functions:
   hello:
-    handler: handler.main
+    handler: src/handler/handler.main
     events:
       - http:
           path: hello
@@ -24,5 +29,14 @@ functions:
           method: post
       - http:
           path: find-by-phone
-          method: get          
-
+          method: get     
+  openai:
+    handler: src/openai/openai.handler
+    timeout: 30
+    events:
+      - http:
+          path: openai
+          method: get
+      - http:
+          path: openai
+          method: post          

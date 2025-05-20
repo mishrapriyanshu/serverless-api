@@ -1,5 +1,5 @@
 const postHandlers = require('./postHandlers');
-const { connectToDatabase } = require('./connection/mongo');
+const { connectToDatabase } = require('../../connection/mongo');
 
 jest.mock('./connection/mongo', () => ({
   connectToDatabase: jest.fn(),

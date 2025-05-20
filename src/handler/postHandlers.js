@@ -1,5 +1,5 @@
-const { connectToDatabase } = require('./connection/mongo');
-const { createResponse } = require('./utils');
+const { connectToDatabase } = require('../../connection/mongo');
+const { createResponse } = require('../utils/utils');
 
 exports.data = async (event) => {
   const body = event.body ? JSON.parse(event.body) : {};
