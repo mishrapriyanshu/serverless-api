@@ -108,7 +108,11 @@ npm run dev
     ]
   }
   ```
+- `GET /openai`  
+  Calls DeepSeek's chat completion API with a sample prompt and returns the AI's response.
 
+- `POST /openai`  
+  Accepts a JSON body and returns a generic response (customize as needed).
 - `GET /openai`  
   Calls DeepSeek's chat completion API with a sample prompt and returns the AI's response.
 
