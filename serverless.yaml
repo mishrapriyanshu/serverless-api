@@ -36,7 +36,6 @@ functions:
       - http:
           path: insert-data
           method: post          
-
   openai:
     handler: src/openai/openai.handler
     timeout: 30

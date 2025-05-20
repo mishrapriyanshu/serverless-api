@@ -17,7 +17,6 @@ jest.mock('./connection/mongo', () => ({
   connectToDatabase: jest.fn(),
 }));
 
-
 describe('postHandlers.data', () => {
   it('should insert data and return success response', async () => {
     const mockInsertOne = jest.fn().mockResolvedValue({ insertedId: 'mockedId' });
