@@ -12,16 +12,23 @@ const routes = {
   },
   'POST': {
     '/data': postHandlers.data,
+    '/create-index-and-mapping': postHandlers.createEsIndexAndMapping,
+    '/insert-data': postHandlers.insertEsData,
   }
 };
 
 function normalizePath(path) {
   if (!path) return '';
-  if (path.endsWith('/hello')) return '/hello';
-  if (path.endsWith('/goodbye')) return '/goodbye';
-  if (path.endsWith('/data')) return '/data';
-  if (path.endsWith('/find-by-phone')) return '/find-by-phone';
-  return path;
+  const knownPaths = [
+    '/hello',
+    '/goodbye',
+    '/data',
+    '/find-by-phone',
+    '/create-index-and-mapping',
+    '/insert-data'
+  ];
+  const matched = knownPaths.find((known) => path.endsWith(known));
+  return matched || path;
 }
 
 module.exports.main = async (event) => {

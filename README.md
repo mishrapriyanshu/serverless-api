@@ -1,12 +1,13 @@
 # Serverless API
 
-A simple Node.js serverless API using AWS Lambda, Serverless Framework, MongoDB, and DeepSeek (OpenAI-compatible) integration.
+A simple Node.js serverless API using AWS Lambda, Serverless Framework, MongoDB, Elasticsearch, and DeepSeek (OpenAI-compatible) integration.
 
 ## Features
 
 - Serverless architecture with AWS Lambda
-- RESTful endpoints (`/hello`, `/goodbye`, `/data`, `/find-by-phone`, `/openai`)
+- RESTful endpoints (`/hello`, `/goodbye`, `/data`, `/find-by-phone`, `/openai`, `/create-index-and-mapping`, `/insert-data`)
 - MongoDB integration for storing and querying data
+- Elasticsearch integration for index/mapping management and bulk data ingestion
 - DeepSeek (OpenAI-compatible) integration for AI chat completions
 - Local development with `serverless-offline` and hot-reloading via `nodemon`
 - Jest unit tests with coverage
@@ -18,6 +19,7 @@ A simple Node.js serverless API using AWS Lambda, Serverless Framework, MongoDB,
 - [Node.js](https://nodejs.org/)
 - [Serverless Framework](https://www.serverless.com/framework/docs/getting-started/)
 - [MongoDB](https://www.mongodb.com/) (local or cloud)
+- [Elasticsearch](https://www.elastic.co/) (cloud or local)
 - [DeepSeek API Key](https://deepseek.com/) or compatible OpenAI API key
 
 ### Installation
@@ -30,11 +32,13 @@ npm install
 
 ### Configuration
 
-Set your MongoDB and DeepSeek/OpenAI connection strings in environment variables:
+Set your MongoDB, Elasticsearch, and DeepSeek/OpenAI connection strings in environment variables:
 
 ```env
 MONGODB_URI=mongodb://localhost:27017
 MONGODB_DB=serverlessdb
+ELASTICSEARCH_NODE=https://your-elasticsearch-url
+ELASTICSEARCH_KEY=your_elasticsearch_api_key
 OPENAI_API_KEY=your_deepseek_api_key
 ```
 
@@ -79,6 +83,37 @@ npm run dev
 - `GET /find-by-phone?phone_number=7376198743`  
   Returns all documents where `data.phone_number` matches the provided number.
 
+- `POST /create-index-and-mapping`  
+  Creates or updates an Elasticsearch index mapping.  
+  **Example body:**
+  ```json
+  {
+    "esIndex": "my-index",
+    "mapping": {
+      "field1": { "type": "text" },
+      "field2": { "type": "keyword" }
+    }
+  }
+  ```
+
+- `POST /insert-data`  
+  Bulk inserts data into an Elasticsearch index.  
+  **Example body:**
+  ```json
+  {
+    "esIndex": "my-index",
+    "data": [
+      { "field1": "value1", "field2": "value2" },
+      { "field1": "value3", "field2": "value4" }
+    ]
+  }
+  ```
+- `GET /openai`  
+  Calls DeepSeek's chat completion API with a sample prompt and returns the AI's response.
+
+- `POST /openai`  
+  Accepts a JSON body and returns a generic response (customize as needed).
+  
 - `GET /openai`  
   Calls DeepSeek's chat completion API with a sample prompt and returns the AI's response.
 
@@ -91,12 +126,15 @@ npm run dev
 .
 ├── src/
 │   ├── handler/
-│   │   └── handler.js
+│   │   ├── handler.js
+│   │   ├── getHandlers.js
+│   │   └── postHandlers.js
 │   ├── openai/
 │   │   └── openai.js
 │   ├── utils.js
 │   └── connection/
-│       └── mongo.js
+│       ├── mongo.js
+│       └── elasticsearch.js
 ├── serverless.yaml
 ├── package.json
 ├── .env
