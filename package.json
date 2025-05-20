@@ -1,7 +1,7 @@
 {
   "name": "serverless-api-priyanshu-test",
-  "version": "1.0.1",
-  "main": "index.js",
+  "version": "1.0.3",
+  "main": "src/handler/handler.js",
   "scripts": {
     "test": "jest",
     "coverage": "jest --coverage",
@@ -13,6 +13,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@elastic/elasticsearch": "^9.0.1",
     "aws-sdk": "^2.1692.0",
     "dotenv": "^16.5.0",
     "mongodb": "^6.16.0",

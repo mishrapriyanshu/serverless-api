@@ -29,7 +29,14 @@ functions:
           method: post
       - http:
           path: find-by-phone
-          method: get     
+          method: get 
+      - http:
+          path: create-index-and-mapping
+          method: post
+      - http:
+          path: insert-data
+          method: post          
+
   openai:
     handler: src/openai/openai.handler
     timeout: 30
