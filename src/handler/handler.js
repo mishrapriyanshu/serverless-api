@@ -2,7 +2,7 @@
 
 const getHandlers = require('./getHandlers');
 const postHandlers = require('./postHandlers');
-const { createResponse } = require('./utils');
+const { createResponse } = require('../utils/utils');
 
 const routes = {
   'GET': {
