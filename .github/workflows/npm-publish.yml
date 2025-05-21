@@ -8,8 +8,7 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    env:
-      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -19,15 +18,21 @@ jobs:
         with:
           node-version: 18
           registry-url: 'https://registry.npmjs.org'
-          always-auth: true  # Optional, but helpful
+
+      - name: Debug if secret exists
+        run: |
+          if [ -z "${{ secrets.NPM_TOKEN }}" ]; then
+            echo "❌ NPM_TOKEN is empty or not injected!"
+            exit 1
+          else
+            echo "✅ NPM_TOKEN is present"
+          fi
 
       - name: Configure npm auth
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-          cat ~/.npmrc  # Debug only — remove later
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Run tests
         run: npm test
