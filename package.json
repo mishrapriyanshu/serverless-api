@@ -1,6 +1,6 @@
 {
   "name": "serverless-api-priyanshu-test",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "src/handler/handler.js",
   "scripts": {
     "test": "jest",
