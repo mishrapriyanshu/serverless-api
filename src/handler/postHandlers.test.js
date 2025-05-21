@@ -13,9 +13,6 @@ const mockEvent = (body) => ({
   body: JSON.stringify(body),
 });
 
-jest.mock('./connection/mongo', () => ({
-  connectToDatabase: jest.fn(),
-}));
 
 describe('postHandlers.data', () => {
   it('should insert data and return success response', async () => {

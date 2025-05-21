@@ -74,4 +74,3 @@ exports.insertEsData = async (event) => {
     { received: body, bulkIngestResponse }
   );
 }
-};
